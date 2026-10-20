@@ -1,0 +1,1599 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Foundly — Lost & Found Recovery Network</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eef2ff',
+              100: '#e0e7ff',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+              900: '#1e1b4b',
+            }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-slate-100 text-slate-800 font-sans antialiased">
+
+  <!-- ================= TOP ENVIRONMENT BANNER ================= -->
+  <div class="bg-slate-900 text-slate-300 px-4 py-2 text-xs flex justify-between items-center border-b border-slate-800 sticky top-0 z-50">
+    <div class="flex items-center gap-2">
+      <span class="inline-flex h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
+      <span class="font-mono text-emerald-400 font-bold">FOUNDLY ENGINE</span>
+      <span class="hidden sm:inline text-slate-500">| Admission Range: 3500–4150 • 1:1 Account Binding</span>
+    </div>
+    
+    <div class="flex items-center gap-2">
+      <span id="currentRoleBadge" class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-slate-800 text-slate-300">
+        Public View
+      </span>
+      <button onclick="handleAdminButtonClick()" id="viewSwitchBtn" class="px-3 py-1 rounded bg-brand-600 hover:bg-brand-500 text-white font-semibold transition flex items-center gap-1.5 shadow-sm">
+        <i data-lucide="lock" class="w-3.5 h-3.5"></i>
+        <span id="viewSwitchText">Admin Console</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- 1. PUBLIC WEBSITE PORTAL                                                  -->
+  <!-- ========================================================================= -->
+  <div id="publicPortal">
+    <!-- Navbar -->
+    <header class="bg-white/95 backdrop-blur-md border-b border-slate-200 sticky top-[33px] z-40">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <div class="h-10 w-10 bg-brand-600 text-white rounded-xl flex items-center justify-center font-bold shadow-md shadow-brand-600/20">
+            <i data-lucide="compass" class="w-6 h-6"></i>
+          </div>
+          <span class="text-xl font-bold tracking-tight text-slate-900">Foundly</span>
+        </div>
+
+        <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
+          <a href="#how-it-works" class="hover:text-brand-600 transition">How It Works</a>
+          <a href="#feed" class="hover:text-brand-600 transition">Live Feed</a>
+          <a href="#trust" class="hover:text-brand-600 transition">Trust & Safety</a>
+          <a href="#faq" class="hover:text-brand-600 transition">FAQ</a>
+        </nav>
+
+        <div class="flex items-center gap-3">
+          <div id="userHeaderSession" class="flex items-center gap-2">
+            <!-- Dynamically populated user session -->
+          </div>
+
+          <button onclick="handleInitiateReport('lost')" class="text-sm font-semibold text-brand-600 hover:text-brand-700 px-3 py-2">
+            Report Lost
+          </button>
+          <button onclick="handleInitiateReport('found')" class="text-sm font-semibold bg-brand-600 hover:bg-brand-700 text-white px-4 py-2 rounded-lg shadow-sm transition">
+            I Found an Item
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative overflow-hidden pt-16 pb-20 lg:pt-24 lg:pb-28 bg-gradient-to-b from-brand-50/70 via-white to-slate-50">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 text-center">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-brand-100 shadow-sm text-xs font-semibold text-brand-700 mb-6">
+          <i data-lucide="shield-check" class="w-4 h-4 text-brand-600"></i>
+          Secure Verification • Admission Numbers (3500–4150)
+        </div>
+
+        <h1 class="text-4xl sm:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.15] mb-6">
+          What Was Lost <br class="hidden sm:inline" />
+          <span class="bg-gradient-to-r from-brand-600 to-indigo-500 bg-clip-text text-transparent">Can Be Found Again.</span>
+        </h1>
+
+        <p class="max-w-2xl mx-auto text-lg text-slate-600 mb-10 leading-relaxed">
+          Sign in with your registered admission number to report or claim items. Submitter identities are strictly confidential and visible only to verified administrators.
+        </p>
+
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <button onclick="handleInitiateReport('lost')" class="w-full sm:w-auto px-8 py-3.5 bg-brand-600 hover:bg-brand-700 text-white font-bold rounded-xl shadow-lg shadow-brand-600/30 flex items-center justify-center gap-2 transition transform hover:-translate-y-0.5">
+            <i data-lucide="search" class="w-5 h-5"></i>
+            I Lost an Item
+          </button>
+          <button onclick="handleInitiateReport('found')" class="w-full sm:w-auto px-8 py-3.5 bg-white hover:bg-slate-50 text-slate-900 border border-slate-300 font-bold rounded-xl shadow-sm flex items-center justify-center gap-2 transition">
+            <i data-lucide="gift" class="w-5 h-5 text-emerald-600"></i>
+            I Found Something
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Live Feed Section -->
+    <section id="feed" class="py-16 bg-white border-t border-slate-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col sm:flex-row justify-between sm:items-end mb-8 gap-4">
+          <div>
+            <h2 class="text-2xl font-bold text-slate-900">Approved Public Items Feed</h2>
+            <p class="text-xs text-slate-500 mt-1">Submitter names and admission numbers are masked for public privacy.</p>
+          </div>
+          <div class="flex items-center gap-2 text-xs bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-lg">
+            <i data-lucide="shield" class="w-4 h-4 text-emerald-600"></i>
+            <span>Privacy Guard Active: Submitter details masked</span>
+          </div>
+        </div>
+
+        <div id="publicFeedGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+    </section>
+
+    <!-- How It Works -->
+    <section id="how-it-works" class="py-16 bg-slate-50 border-t border-slate-200">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-2xl mx-auto mb-12">
+          <h2 class="text-2xl sm:text-3xl font-bold text-slate-900">How It Works</h2>
+        </div>
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="p-6 bg-white rounded-xl border border-slate-200">
+            <div class="h-10 w-10 bg-brand-100 text-brand-600 font-bold rounded-lg flex items-center justify-center mb-4">1</div>
+            <h3 class="font-bold text-slate-900 mb-1">Authenticated Entry</h3>
+            <p class="text-xs text-slate-600 leading-relaxed">Sign in with your verified username, password, and admission number (3500–4150). Unauthenticated claims are blocked.</p>
+          </div>
+          <div class="p-6 bg-white rounded-xl border border-slate-200">
+            <div class="h-10 w-10 bg-brand-100 text-brand-600 font-bold rounded-lg flex items-center justify-center mb-4">2</div>
+            <h3 class="font-bold text-slate-900 mb-1">Encrypted Record Binding</h3>
+            <p class="text-xs text-slate-600 leading-relaxed">Your admission record is permanently tied to the report, hidden from public users, and visible only to the admin.</p>
+          </div>
+          <div class="p-6 bg-white rounded-xl border border-slate-200">
+            <div class="h-10 w-10 bg-brand-100 text-brand-600 font-bold rounded-lg flex items-center justify-center mb-4">3</div>
+            <h3 class="font-bold text-slate-900 mb-1">Admin Supervision</h3>
+            <p class="text-xs text-slate-600 leading-relaxed">Admin lostnihad audits submissions, verifies identity challenges, and authorizes handovers.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Trust & Safety -->
+    <section id="trust" class="py-16 bg-white border-t border-slate-200">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-2xl mx-auto mb-12">
+          <h2 class="text-2xl sm:text-3xl font-bold text-slate-900">Zero-Exposure Trust & Safety</h2>
+        </div>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 text-xs text-slate-600">
+          <div class="p-5 rounded-xl bg-slate-50 border border-slate-200">
+            <i data-lucide="user-x" class="w-6 h-6 text-brand-600 mb-2"></i>
+            <h4 class="font-bold text-slate-900 text-sm mb-1">Masked Identities</h4>
+            Public visitors cannot see student names or admission numbers.
+          </div>
+          <div class="p-5 rounded-xl bg-slate-50 border border-slate-200">
+            <i data-lucide="lock" class="w-6 h-6 text-brand-600 mb-2"></i>
+            <h4 class="font-bold text-slate-900 text-sm mb-1">Duplicate Account Lock</h4>
+            One admission number can never be registered under multiple usernames.
+          </div>
+          <div class="p-5 rounded-xl bg-slate-50 border border-slate-200">
+            <i data-lucide="key" class="w-6 h-6 text-brand-600 mb-2"></i>
+            <h4 class="font-bold text-slate-900 text-sm mb-1">Blind Verification</h4>
+            Claimants must describe unrevealed markings before items are authorized for release.
+          </div>
+          <div class="p-5 rounded-xl bg-slate-50 border border-slate-200">
+            <i data-lucide="shield-alert" class="w-6 h-6 text-brand-600 mb-2"></i>
+            <h4 class="font-bold text-slate-900 text-sm mb-1">Full Admin Audit</h4>
+            Admin oversees every student login, timestamp, and password record for safety.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="py-16 bg-slate-50 border-t border-slate-200">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6">
+        <h2 class="text-2xl font-bold text-slate-900 text-center mb-8">Frequently Asked Questions</h2>
+        <div class="space-y-3">
+          <div class="p-4 bg-white rounded-xl border border-slate-200">
+            <h4 class="font-semibold text-slate-900 text-sm">Why do I need to enter my admission number when signing in?</h4>
+            <p class="text-xs text-slate-600 mt-1">Requiring your admission number on sign-in ensures account integrity and guarantees that all submissions match verified institutional student records.</p>
+          </div>
+          <div class="p-4 bg-white rounded-xl border border-slate-200">
+            <h4 class="font-semibold text-slate-900 text-sm">Can other students see my login or admission number?</h4>
+            <p class="text-xs text-slate-600 mt-1">No. Your credentials and admission records are strictly isolated. Only you and the platform administrator can inspect them.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- 2. USER AUTHENTICATION MODAL (SIGN IN & REGISTER)                         -->
+  <!-- ========================================================================= -->
+  <div id="userAuthModal" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl relative">
+      <button onclick="closeUserAuthModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <!-- Auth Tabs -->
+      <div class="flex border-b border-slate-200 mb-5">
+        <button onclick="setUserAuthMode('login')" id="tabBtnUserLogin" class="flex-1 pb-3 text-xs font-bold text-brand-600 border-b-2 border-brand-600">
+          User Sign In
+        </button>
+        <button onclick="setUserAuthMode('register')" id="tabBtnUserRegister" class="flex-1 pb-3 text-xs font-bold text-slate-400 hover:text-slate-700">
+          Create Account (Adm 3500–4150)
+        </button>
+      </div>
+
+      <!-- Error / Alert Banner -->
+      <div id="userAuthErrorMsg" class="hidden mb-4 p-3 bg-red-50 border border-red-200 rounded-xl text-red-600 text-xs flex items-start gap-2">
+        <i data-lucide="alert-circle" class="w-4 h-4 shrink-0 mt-0.5"></i>
+        <span id="userAuthErrorText" class="leading-tight">Error message goes here</span>
+      </div>
+
+      <!-- SIGN IN FORM (WITH ADMISSION NUMBER INCLUDED) -->
+      <form id="userLoginForm" onsubmit="handleUserLogin(event)" class="space-y-3.5">
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Username</label>
+          <div class="relative">
+            <i data-lucide="user" class="w-4 h-4 absolute left-3 top-3 text-slate-400"></i>
+            <input type="text" id="loginUsername" required placeholder="Enter your username" class="w-full pl-9 pr-3 py-2.5 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-600" />
+          </div>
+        </div>
+
+        <div>
+          <div class="flex justify-between items-center mb-1">
+            <label class="text-xs font-semibold text-slate-700">Admission Number</label>
+            <span class="text-[10px] font-mono text-brand-600 font-bold">3500–4150</span>
+          </div>
+          <div class="relative">
+            <i data-lucide="binary" class="w-4 h-4 absolute left-3 top-3 text-slate-400"></i>
+            <input type="number" id="loginAdmissionNo" min="3500" max="4150" required placeholder="Enter your registered admission number" class="w-full pl-9 pr-3 py-2.5 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-600 font-mono" />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Password</label>
+          <div class="relative">
+            <i data-lucide="key" class="w-4 h-4 absolute left-3 top-3 text-slate-400"></i>
+            <input type="password" id="loginPassword" required placeholder="••••••••" class="w-full pl-9 pr-3 py-2.5 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-600" />
+          </div>
+        </div>
+
+        <button type="submit" class="w-full py-2.5 bg-brand-600 hover:bg-brand-700 text-white font-semibold rounded-xl text-xs transition shadow-md shadow-brand-600/20 mt-2">
+          Verify & Sign In
+        </button>
+      </form>
+
+      <!-- REGISTRATION FORM -->
+      <form id="userRegisterForm" onsubmit="handleUserRegister(event)" class="space-y-3 hidden">
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Full Name</label>
+          <input type="text" id="regFullName" required placeholder="e.g. Rahul Sharma" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-600" />
+        </div>
+
+        <div>
+          <div class="flex justify-between items-center mb-1">
+            <label class="text-xs font-semibold text-slate-700">Admission Number</label>
+            <span class="text-[10px] font-mono text-brand-600 font-bold">Range: 3500 – 4150</span>
+          </div>
+          <input type="number" id="regAdmissionNo" min="3500" max="4150" required placeholder="Enter number between 3500 and 4150" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-600 font-mono" />
+          <div class="flex items-center gap-1 text-[10px] text-rose-600 font-medium mt-1">
+            <i data-lucide="shield-alert" class="w-3 h-3"></i>
+            <span>Strict rule: One admission number can only be linked to ONE ID.</span>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Choose Username</label>
+          <input type="text" id="regUsername" required placeholder="e.g. rahul3820" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-600" />
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Choose Password</label>
+          <input type="password" id="regPassword" required placeholder="Create a secure password" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-600" />
+        </div>
+
+        <button type="submit" class="w-full py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-xl text-xs transition shadow-md shadow-emerald-600/20 mt-2">
+          Register & Lock Admission Number
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- 3. ADMIN LOGIN MODAL (ISOLATED CREDENTIALS)                               -->
+  <!-- ========================================================================= -->
+  <div id="adminLoginModal" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-800 text-white rounded-2xl max-w-sm w-full p-6 shadow-2xl relative">
+      <button onclick="closeAdminLoginModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <div class="h-12 w-12 bg-brand-600/20 text-brand-400 rounded-xl flex items-center justify-center mx-auto mb-4 border border-brand-500/30">
+        <i data-lucide="shield-check" class="w-6 h-6"></i>
+      </div>
+
+      <h3 class="text-lg font-bold text-center text-white mb-1">Super Admin Login</h3>
+      <p class="text-xs text-slate-400 text-center mb-6">Restricted administrator portal.</p>
+
+      <!-- Error Box -->
+      <div id="loginErrorMsg" class="hidden mb-4 p-2.5 bg-red-950/80 border border-red-800 rounded-lg text-red-300 text-xs text-center flex items-center justify-center gap-2">
+        <i data-lucide="alert-circle" class="w-4 h-4 text-red-400"></i>
+        <span>Invalid Admin ID or Password.</span>
+      </div>
+
+      <form onsubmit="handleAdminLogin(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Admin ID</label>
+          <div class="relative">
+            <i data-lucide="user" class="w-4 h-4 absolute left-3 top-3 text-slate-500"></i>
+            <input type="text" id="adminIdInput" required autocomplete="username" placeholder="Admin ID" class="w-full bg-slate-800 border border-slate-700 rounded-xl pl-9 pr-3 py-2.5 text-xs text-white focus:outline-none focus:ring-2 focus:ring-brand-500" />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Password</label>
+          <div class="relative">
+            <i data-lucide="key" class="w-4 h-4 absolute left-3 top-3 text-slate-500"></i>
+            <input type="password" id="adminPasswordInput" required autocomplete="current-password" placeholder="••••••••" class="w-full bg-slate-800 border border-slate-700 rounded-xl pl-9 pr-3 py-2.5 text-xs text-white focus:outline-none focus:ring-2 focus:ring-brand-500" />
+          </div>
+        </div>
+
+        <button type="submit" class="w-full py-2.5 bg-brand-600 hover:bg-brand-500 text-white font-semibold rounded-xl text-xs transition shadow-md shadow-brand-600/30 flex items-center justify-center gap-1.5 mt-2">
+          <i data-lucide="log-in" class="w-4 h-4"></i>
+          Authenticate & Access Console
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- 4. ADMIN OPERATIONS CONSOLE (SUPER-USER CONTROL)                          -->
+  <!-- ========================================================================= -->
+  <div id="adminConsole" class="hidden min-h-screen bg-slate-950 text-slate-100 flex">
+    
+    <!-- Admin Sidebar -->
+    <aside class="w-64 bg-slate-900 border-r border-slate-800 flex flex-col justify-between shrink-0">
+      <div>
+        <!-- Profile / Brand -->
+        <div class="h-16 px-6 flex items-center gap-3 border-b border-slate-800">
+          <div class="h-8 w-8 bg-brand-600 text-white rounded-lg flex items-center justify-center font-bold">
+            <i data-lucide="shield" class="w-4 h-4"></i>
+          </div>
+          <div>
+            <span class="font-bold text-xs text-white tracking-wide block uppercase font-mono">lostnihad</span>
+            <span class="text-[10px] text-emerald-400 font-mono">ROOT PRIVILEGES</span>
+          </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <nav class="p-4 space-y-1 text-xs font-medium">
+          <button onclick="switchAdminTab('items')" id="tabBtn-items" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg bg-brand-600 text-white">
+            <i data-lucide="layers" class="w-4 h-4"></i>
+            <span>All Submissions</span>
+            <span id="badgeTotalItems" class="ml-auto bg-slate-900/60 text-[10px] px-2 py-0.5 rounded-full font-bold">0</span>
+          </button>
+
+          <button onclick="switchAdminTab('users')" id="tabBtn-users" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800">
+            <i data-lucide="users" class="w-4 h-4"></i>
+            <span>User Accounts & Passwords</span>
+            <span id="badgeTotalUsers" class="ml-auto bg-emerald-500/30 text-emerald-300 text-[10px] px-2 py-0.5 rounded-full font-bold">0</span>
+          </button>
+
+          <button onclick="switchAdminTab('matches')" id="tabBtn-matches" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800">
+            <i data-lucide="git-merge" class="w-4 h-4"></i>
+            <span>Matching Engine</span>
+            <span id="badgeActiveMatches" class="ml-auto bg-brand-500/30 text-brand-300 text-[10px] px-2 py-0.5 rounded-full font-bold">0</span>
+          </button>
+
+          <button onclick="switchAdminTab('dispatch')" id="tabBtn-dispatch" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800">
+            <i data-lucide="truck" class="w-4 h-4"></i>
+            <span>Dispatch & Handovers</span>
+          </button>
+        </nav>
+      </div>
+
+      <!-- Admin Actions / Logout -->
+      <div class="p-4 border-t border-slate-800 space-y-2">
+        <button onclick="resetToSampleData()" class="w-full py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-xs font-semibold flex items-center justify-center gap-2">
+          <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
+          Reset Sample Data
+        </button>
+        <button onclick="adminLogout()" class="w-full py-2 bg-red-950/40 hover:bg-red-900/50 text-red-300 border border-red-800/50 rounded-lg text-xs font-semibold flex items-center justify-center gap-2 transition">
+          <i data-lucide="log-out" class="w-3.5 h-3.5"></i>
+          Log Out (lostnihad)
+        </button>
+      </div>
+    </aside>
+
+    <!-- Admin Content Area -->
+    <main class="flex-1 p-8 overflow-y-auto max-h-screen">
+      
+      <!-- Quick Stats Row -->
+      <div class="grid grid-cols-1 sm:grid-cols-4 gap-4 mb-8">
+        <div class="p-4 rounded-xl bg-slate-900 border border-slate-800">
+          <span class="text-xs text-slate-500 block mb-1">Total Lost Reports</span>
+          <span id="statLostCount" class="text-2xl font-bold text-white font-mono">0</span>
+        </div>
+        <div class="p-4 rounded-xl bg-slate-900 border border-slate-800">
+          <span class="text-xs text-slate-500 block mb-1">Total Found Items</span>
+          <span id="statFoundCount" class="text-2xl font-bold text-emerald-400 font-mono">0</span>
+        </div>
+        <div class="p-4 rounded-xl bg-slate-900 border border-slate-800">
+          <span class="text-xs text-slate-500 block mb-1">Unique Admission IDs</span>
+          <span id="statUserCount" class="text-2xl font-bold text-amber-400 font-mono">0</span>
+        </div>
+        <div class="p-4 rounded-xl bg-slate-900 border border-slate-800">
+          <span class="text-xs text-slate-500 block mb-1">Dispatched / Returned</span>
+          <span id="statDispatchedCount" class="text-2xl font-bold text-indigo-400 font-mono">0</span>
+        </div>
+      </div>
+
+      <!-- ================= TAB 1: ALL SUBMISSIONS ================= -->
+      <div id="adminTab-items">
+        <div class="flex flex-col sm:flex-row justify-between sm:items-center mb-6 gap-4">
+          <div>
+            <h2 class="text-xl font-bold text-white">Submissions Master Database</h2>
+            <p class="text-xs text-slate-400">Admin lostnihad: private access to Submitter Names and confidential Admission Numbers.</p>
+          </div>
+
+          <div class="flex items-center gap-3">
+            <select id="adminFilterType" onchange="renderAdminTables()" class="bg-slate-900 border border-slate-700 text-xs rounded-lg px-3 py-2 text-slate-200">
+              <option value="ALL">All Types (Lost & Found)</option>
+              <option value="lost">Lost Reports Only</option>
+              <option value="found">Found Items Only</option>
+            </select>
+            <select id="adminFilterStatus" onchange="renderAdminTables()" class="bg-slate-900 border border-slate-700 text-xs rounded-lg px-3 py-2 text-slate-200">
+              <option value="ALL">All Statuses</option>
+              <option value="APPROVED">Approved</option>
+              <option value="PENDING">Pending Review</option>
+              <option value="FLAGGED">Flagged / Spam</option>
+              <option value="DISPATCHED">Dispatched / Reunited</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="bg-slate-900 rounded-xl border border-slate-800 overflow-hidden">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-slate-800/80 text-slate-400 uppercase text-[10px] tracking-wider border-b border-slate-800">
+              <tr>
+                <th class="p-3.5">ID / Type</th>
+                <th class="p-3.5">Submitter & Adm No (Confidential)</th>
+                <th class="p-3.5">Item Name</th>
+                <th class="p-3.5">Location & Date</th>
+                <th class="p-3.5">Concealed Trait</th>
+                <th class="p-3.5">Status</th>
+                <th class="p-3.5 text-right">Super Actions</th>
+              </tr>
+            </thead>
+            <tbody id="adminItemsTableBody" class="divide-y divide-slate-800/50 text-slate-300">
+              <!-- Rendered via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ================= TAB 2: USER ACCOUNTS & PASSWORDS LOG (WITH LIVE SEARCH) ================= -->
+      <div id="adminTab-users" class="hidden">
+        <div class="flex flex-col md:flex-row justify-between md:items-center mb-6 gap-4">
+          <div>
+            <h2 class="text-xl font-bold text-white">User Accounts & Credentials Audit</h2>
+            <p class="text-xs text-slate-400">Search logged-in users by Admission Number, Name, or Username.</p>
+          </div>
+          
+          <!-- SEARCH BAR -->
+          <div class="relative w-full md:w-80">
+            <i data-lucide="search" class="w-4 h-4 absolute left-3 top-2.5 text-slate-400"></i>
+            <input 
+              type="text" 
+              id="adminUserSearchInput" 
+              oninput="renderUsersTable()" 
+              placeholder="Search by Admission No, Name, or Username..." 
+              class="w-full bg-slate-900 border border-slate-700 pl-9 pr-8 py-2 rounded-xl text-xs text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-500"
+            />
+            <button onclick="clearUserSearch()" class="absolute right-2.5 top-2.5 text-slate-500 hover:text-white" title="Clear search">
+              <i data-lucide="x-circle" class="w-4 h-4"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="bg-slate-900 rounded-xl border border-slate-800 overflow-hidden">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-slate-800/80 text-slate-400 uppercase text-[10px] tracking-wider border-b border-slate-800">
+              <tr>
+                <th class="p-3.5">Admission No (3500–4150)</th>
+                <th class="p-3.5">Binding Status</th>
+                <th class="p-3.5">Full Name</th>
+                <th class="p-3.5">Username</th>
+                <th class="p-3.5">Password (Admin View)</th>
+                <th class="p-3.5">Last Logged In Time</th>
+                <th class="p-3.5 text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="adminUsersTableBody" class="divide-y divide-slate-800/50 text-slate-300">
+              <!-- Rendered via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ================= TAB 3: MATCHING ENGINE & OVERRIDES ================= -->
+      <div id="adminTab-matches" class="hidden">
+        <div class="flex justify-between items-center mb-6">
+          <div>
+            <h2 class="text-xl font-bold text-white">AI Cross-Matching & Manual Overrides</h2>
+            <p class="text-xs text-slate-400">Match items and verify submitter admission credentials before releasing.</p>
+          </div>
+          <button onclick="triggerAutoMatchSweep()" class="px-3.5 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold flex items-center gap-2">
+            <i data-lucide="sparkles" class="w-4 h-4"></i>
+            Run AI Matching Sweep
+          </button>
+        </div>
+
+        <div class="grid lg:grid-cols-2 gap-6">
+          <div class="bg-slate-900 p-5 rounded-xl border border-slate-800">
+            <h3 class="text-sm font-bold text-white mb-3 flex items-center gap-2">
+              <i data-lucide="cpu" class="w-4 h-4 text-brand-400"></i>
+              System Identified Match Candidates
+            </h3>
+            <div id="suggestedMatchesList" class="space-y-3">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+
+          <div class="bg-slate-900 p-5 rounded-xl border border-slate-800">
+            <h3 class="text-sm font-bold text-white mb-2 flex items-center gap-2">
+              <i data-lucide="link" class="w-4 h-4 text-emerald-400"></i>
+              Force Manual Override Link
+            </h3>
+            <p class="text-xs text-slate-400 mb-4">Pair any lost report with any found item using verified admission credentials.</p>
+            
+            <form onsubmit="handleManualPairing(event)" class="space-y-4">
+              <div>
+                <label class="block text-[11px] text-slate-400 mb-1">Select Lost Report (Claimant)</label>
+                <select id="manualLostSelect" required class="w-full bg-slate-800 border border-slate-700 text-xs rounded-lg px-3 py-2 text-slate-200">
+                  <!-- Populated by JS -->
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-[11px] text-slate-400 mb-1">Select Found Item (Holder)</label>
+                <select id="manualFoundSelect" required class="w-full bg-slate-800 border border-slate-700 text-xs rounded-lg px-3 py-2 text-slate-200">
+                  <!-- Populated by JS -->
+                </select>
+              </div>
+
+              <button type="submit" class="w-full py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold rounded-lg text-xs transition">
+                Force Link Pair & Authorize Handover
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= TAB 4: DISPATCH & HANDOVERS ================= -->
+      <div id="adminTab-dispatch" class="hidden">
+        <div class="mb-6">
+          <h2 class="text-xl font-bold text-white">Blind Courier Logistics & Return Slips</h2>
+          <p class="text-xs text-slate-400">Issue secure delivery PINs and track institutional return manifests.</p>
+        </div>
+
+        <div class="bg-slate-900 rounded-xl border border-slate-800 overflow-hidden">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-slate-800/80 text-slate-400 uppercase text-[10px] tracking-wider border-b border-slate-800">
+              <tr>
+                <th class="p-3.5">Matched Item</th>
+                <th class="p-3.5">Verified Claimant Adm No</th>
+                <th class="p-3.5">Tracking Number</th>
+                <th class="p-3.5">Delivery Secret PIN</th>
+                <th class="p-3.5">Status</th>
+                <th class="p-3.5 text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="dispatchTableBody" class="divide-y divide-slate-800/50 text-slate-300">
+              <!-- Rendered via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- ================= PUBLIC REPORT MODAL ================= -->
+  <div id="reportModal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative max-h-[92vh] overflow-y-auto">
+      <button onclick="closeModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <h3 id="modalTitle" class="text-xl font-bold text-slate-900 mb-1">Report an Item</h3>
+      <p id="modalSubtitle" class="text-xs text-slate-500 mb-5">Your identity and admission number are bound from your active session.</p>
+
+      <form id="itemForm" onsubmit="handlePublicSubmit(event)" class="space-y-4">
+        <input type="hidden" id="reportType" value="lost" />
+
+        <!-- Submitter Identity Details -->
+        <div class="p-3.5 bg-brand-50/70 border border-brand-100 rounded-xl space-y-2">
+          <div class="flex items-center gap-1.5 text-xs font-bold text-brand-900">
+            <i data-lucide="lock" class="w-3.5 h-3.5 text-brand-600"></i>
+            <span>Logged-In Submitter Record (Admin & You Only)</span>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-[11px] font-semibold text-slate-600 mb-1">Authenticated Name</label>
+              <input type="text" id="reportSubmitterName" disabled class="w-full bg-slate-100 px-3 py-2 rounded-lg border border-slate-200 text-xs text-slate-800 font-medium cursor-not-allowed" />
+            </div>
+            <div>
+              <label class="block text-[11px] font-semibold text-slate-600 mb-1">Admission Number</label>
+              <input type="text" id="reportAdmissionNumber" disabled class="w-full bg-slate-100 px-3 py-2 rounded-lg border border-slate-200 text-xs text-brand-700 font-mono font-bold cursor-not-allowed" />
+            </div>
+          </div>
+          <p class="text-[10px] text-brand-700/90 leading-tight">
+            * This submission is locked to your account. Your admission number and name will <strong>never</strong> be visible on public cards.
+          </p>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Item Title / Model <span class="text-rose-500">*</span></label>
+          <input type="text" id="itemName" required placeholder="e.g. Sony WH-1000XM4 Headphones or Scientific Calculator" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-brand-600" />
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Date <span class="text-rose-500">*</span></label>
+            <input type="date" id="itemDate" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-brand-600" />
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Location <span class="text-rose-500">*</span></label>
+            <input type="text" id="itemLocation" required placeholder="e.g. Library 2nd Floor or Sports Arena" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-brand-600" />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">
+            Concealed Trait / Private Identifier <span class="text-rose-500">*</span>
+          </label>
+          <textarea id="itemDetail" rows="2" required placeholder="Hidden detail only the real owner knows (e.g. specific scratch on corner, sticker inside case, keychain text)." class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-brand-600"></textarea>
+          <p class="text-[11px] text-slate-400 mt-1">Concealed from public feed for blind ownership verification.</p>
+        </div>
+
+        <button type="submit" class="w-full py-3 bg-brand-600 hover:bg-brand-700 text-white font-semibold rounded-xl text-sm transition mt-2 shadow-md shadow-brand-600/20">
+          Submit Report Securely
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= EDIT ITEM MODAL (ADMIN PRIVILEGED) ================= -->
+  <div id="adminEditModal" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-800 text-white rounded-2xl max-w-md w-full p-6 shadow-2xl relative">
+      <button onclick="closeAdminEditModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <div class="flex items-center gap-2 mb-4 text-brand-400 text-xs font-mono font-bold">
+        <i data-lucide="edit-3" class="w-4 h-4"></i>
+        <span>ADMIN OVERRIDE: lostnihad</span>
+      </div>
+
+      <form onsubmit="saveAdminEdit(event)" class="space-y-4">
+        <input type="hidden" id="editItemId" />
+
+        <div class="grid grid-cols-2 gap-3 bg-slate-800/80 p-3 rounded-xl border border-slate-700">
+          <div>
+            <label class="block text-[10px] text-brand-300 font-semibold mb-1 uppercase">Submitter Name</label>
+            <input type="text" id="editSubmitterName" required class="w-full bg-slate-900 border border-slate-700 px-2.5 py-1.5 rounded text-xs text-white" />
+          </div>
+          <div>
+            <label class="block text-[10px] text-brand-300 font-semibold mb-1 uppercase">Admission Number (3500–4150)</label>
+            <input type="number" min="3500" max="4150" id="editAdmissionNumber" required class="w-full bg-slate-900 border border-slate-700 px-2.5 py-1.5 rounded text-xs text-white font-mono" />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs text-slate-400 mb-1">Item Title</label>
+          <input type="text" id="editItemName" required class="w-full bg-slate-800 border border-slate-700 px-3 py-2 rounded-lg text-xs text-white" />
+        </div>
+
+        <div>
+          <label class="block text-xs text-slate-400 mb-1">Location</label>
+          <input type="text" id="editItemLocation" required class="w-full bg-slate-800 border border-slate-700 px-3 py-2 rounded-lg text-xs text-white" />
+        </div>
+
+        <div>
+          <label class="block text-xs text-slate-400 mb-1">Concealed Trait</label>
+          <textarea id="editItemTrait" rows="2" required class="w-full bg-slate-800 border border-slate-700 px-3 py-2 rounded-lg text-xs text-white"></textarea>
+        </div>
+
+        <div>
+          <label class="block text-xs text-slate-400 mb-1">Moderation Status</label>
+          <select id="editItemStatus" class="w-full bg-slate-800 border border-slate-700 px-3 py-2 rounded-lg text-xs text-white">
+            <option value="APPROVED">APPROVED (Live on Public Feed)</option>
+            <option value="PENDING">PENDING (Under Moderator Review)</option>
+            <option value="FLAGGED">FLAGGED (Spam / Disputed)</option>
+            <option value="DISPATCHED">DISPATCHED (Reunited / Closed)</option>
+          </select>
+        </div>
+
+        <button type="submit" class="w-full py-2.5 bg-brand-600 hover:bg-brand-500 text-white font-semibold rounded-lg text-xs transition">
+          Save Administrative Changes
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= JAVASCRIPT STATE ENGINE ================= -->
+  <script>
+    // Initialize icons
+    lucide.createIcons();
+
+    // STRICT ADMIN CREDENTIALS
+    const REQUIRED_ADMIN_ID = "lostnihad";
+    const REQUIRED_ADMIN_PASS = "nihadlost";
+    let isAuthenticatedAdmin = sessionStorage.getItem('foundly_admin_auth') === 'true';
+
+    // USER DATABASE - UNIQUE 1:1 ADMISSION NUMBERS (3500–4150)
+    const DEFAULT_USERS = [
+      {
+        id: "USR-3820",
+        name: "Rahul Sharma",
+        admissionNumber: 3820,
+        username: "rahul3820",
+        password: "rahulpassword@123",
+        lastLoginTime: "19/10/2026, 05:30:15 PM"
+      },
+      {
+        id: "USR-3950",
+        name: "Emily Vance",
+        admissionNumber: 3950,
+        username: "emily3950",
+        password: "emilypass2026",
+        lastLoginTime: "19/10/2026, 04:15:20 PM"
+      },
+      {
+        id: "USR-4015",
+        name: "Marcus Sterling",
+        admissionNumber: 4015,
+        username: "marcus4015",
+        password: "marcussecure",
+        lastLoginTime: "19/10/2026, 03:00:00 PM"
+      }
+    ];
+
+    let users = JSON.parse(localStorage.getItem('foundly_users')) || DEFAULT_USERS;
+    let currentUser = JSON.parse(sessionStorage.getItem('foundly_current_user')) || null;
+
+    // DEFAULT ITEMS DATABASE
+    const DEFAULT_ITEMS = [
+      {
+        id: "FND-101",
+        type: "found",
+        name: "Sony WH-1000XM4 Wireless Headphones",
+        submitterName: "Marcus Sterling",
+        admissionNumber: 4015,
+        submitterUsername: "marcus4015",
+        date: "2026-10-18",
+        location: "Central Library Desk 4",
+        concealedTrait: "Yellow smiley sticker hidden under headband foam",
+        status: "APPROVED"
+      },
+      {
+        id: "LST-201",
+        type: "lost",
+        name: "Sony Wireless Over-Ear Headphones",
+        submitterName: "Emily Vance",
+        admissionNumber: 3950,
+        submitterUsername: "emily3950",
+        date: "2026-10-18",
+        location: "Library Reading Room",
+        concealedTrait: "Smiley decal under the upper cushion band",
+        status: "APPROVED"
+      },
+      {
+        id: "FND-102",
+        type: "found",
+        name: "Bellroy Leather Bifold Wallet (Tan)",
+        submitterName: "Rahul Sharma",
+        admissionNumber: 3820,
+        submitterUsername: "rahul3820",
+        date: "2026-10-19",
+        location: "Campus Cafeteria Counter",
+        concealedTrait: "Equinox Gym badge in rear card slot",
+        status: "PENDING"
+      }
+    ];
+
+    let dispatches = [
+      {
+        id: "DSP-5001",
+        itemId: "FND-101",
+        name: "Sony WH-1000XM4",
+        claimantAdm: 3950,
+        tracking: "TRK-9928192-IN",
+        pin: "8492",
+        status: "IN_TRANSIT"
+      }
+    ];
+
+    let items = JSON.parse(localStorage.getItem('foundly_items')) || DEFAULT_ITEMS;
+
+    function saveState() {
+      localStorage.setItem('foundly_items', JSON.stringify(items));
+      localStorage.setItem('foundly_users', JSON.stringify(users));
+      renderPublicFeed();
+      renderUserHeader();
+      if(isAuthenticatedAdmin) {
+        renderAdminTables();
+        renderUsersTable();
+      }
+      updateStats();
+    }
+
+    function resetToSampleData() {
+      if(confirm("Reset all items, users, and dispatches to factory sample data?")) {
+        items = JSON.parse(JSON.stringify(DEFAULT_ITEMS));
+        users = JSON.parse(JSON.stringify(DEFAULT_USERS));
+        saveState();
+      }
+    }
+
+    // ================= USER AUTHENTICATION =================
+    function renderUserHeader() {
+      const container = document.getElementById('userHeaderSession');
+      if (currentUser) {
+        container.innerHTML = `
+          <div class="flex items-center gap-2 bg-slate-100 px-3 py-1.5 rounded-xl border border-slate-200 text-xs">
+            <div class="h-6 w-6 rounded-full bg-brand-600 text-white flex items-center justify-center font-bold text-[10px]">
+              ${currentUser.name.charAt(0)}
+            </div>
+            <div class="leading-tight">
+              <span class="font-bold text-slate-800 block">${currentUser.name}</span>
+              <span class="text-[10px] text-brand-600 font-mono font-semibold">Adm: ${currentUser.admissionNumber}</span>
+            </div>
+            <button onclick="handleUserLogout()" title="Log Out" class="ml-1 text-slate-400 hover:text-rose-600">
+              <i data-lucide="log-out" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+        `;
+      } else {
+        container.innerHTML = `
+          <button onclick="openUserAuthModal('login')" class="text-xs font-semibold px-3 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 transition flex items-center gap-1.5">
+            <i data-lucide="user" class="w-3.5 h-3.5"></i>
+            <span>Student Sign In</span>
+          </button>
+        `;
+      }
+      lucide.createIcons();
+    }
+
+    function openUserAuthModal(mode = 'login') {
+      setUserAuthMode(mode);
+      document.getElementById('userAuthErrorMsg').classList.add('hidden');
+      document.getElementById('userAuthModal').classList.remove('hidden');
+    }
+
+    function closeUserAuthModal() {
+      document.getElementById('userAuthModal').classList.add('hidden');
+    }
+
+    function setUserAuthMode(mode) {
+      const loginForm = document.getElementById('userLoginForm');
+      const registerForm = document.getElementById('userRegisterForm');
+      const tabLogin = document.getElementById('tabBtnUserLogin');
+      const tabReg = document.getElementById('tabBtnUserRegister');
+      document.getElementById('userAuthErrorMsg').classList.add('hidden');
+
+      if (mode === 'login') {
+        loginForm.classList.remove('hidden');
+        registerForm.classList.add('hidden');
+        tabLogin.className = "flex-1 pb-3 text-xs font-bold text-brand-600 border-b-2 border-brand-600";
+        tabReg.className = "flex-1 pb-3 text-xs font-bold text-slate-400 hover:text-slate-700";
+      } else {
+        loginForm.classList.add('hidden');
+        registerForm.classList.remove('hidden');
+        tabReg.className = "flex-1 pb-3 text-xs font-bold text-emerald-600 border-b-2 border-emerald-600";
+        tabLogin.className = "flex-1 pb-3 text-xs font-bold text-slate-400 hover:text-slate-700";
+      }
+    }
+
+    // USER SIGN IN WITH REQUIRED ADMISSION NUMBER VERIFICATION
+    function handleUserLogin(e) {
+      e.preventDefault();
+      const u = document.getElementById('loginUsername').value.trim();
+      const p = document.getElementById('loginPassword').value.trim();
+      const adm = parseInt(document.getElementById('loginAdmissionNo').value, 10);
+      const errorBox = document.getElementById('userAuthErrorMsg');
+      const errorText = document.getElementById('userAuthErrorText');
+
+      // Validate Admission Number Range: 3500–4150
+      if (isNaN(adm) || adm < 3500 || adm > 4150) {
+        errorText.innerText = "Admission number must strictly be between 3500 and 4150.";
+        errorBox.classList.remove('hidden');
+        return;
+      }
+
+      // Check username, password AND admission number
+      const found = users.find(user => 
+        user.username.toLowerCase() === u.toLowerCase() && 
+        user.password === p && 
+        Number(user.admissionNumber) === adm
+      );
+
+      if (found) {
+        found.lastLoginTime = new Date().toLocaleString();
+        currentUser = found;
+        sessionStorage.setItem('foundly_current_user', JSON.stringify(currentUser));
+        saveState();
+        closeUserAuthModal();
+      } else {
+        // Detailed error feedback if username exists but admission number was wrong
+        const userExists = users.find(user => user.username.toLowerCase() === u.toLowerCase());
+        if (userExists && userExists.password === p && Number(userExists.admissionNumber) !== adm) {
+          errorText.innerText = "Admission number mismatch! Entered admission number does not match this username.";
+        } else {
+          errorText.innerText = "Invalid credentials. Please verify your Username, Admission Number, and Password.";
+        }
+        errorBox.classList.remove('hidden');
+      }
+    }
+
+    // REGISTRATION WITH STRICT 1:1 DUPLICATE RESTRICTION
+    function handleUserRegister(e) {
+      e.preventDefault();
+      const fullName = document.getElementById('regFullName').value.trim();
+      const admissionNo = parseInt(document.getElementById('regAdmissionNo').value, 10);
+      const username = document.getElementById('regUsername').value.trim();
+      const password = document.getElementById('regPassword').value.trim();
+
+      const errorBox = document.getElementById('userAuthErrorMsg');
+      const errorText = document.getElementById('userAuthErrorText');
+
+      // 1. Validate Range: 3500–4150
+      if (isNaN(admissionNo) || admissionNo < 3500 || admissionNo > 4150) {
+        errorText.innerText = "Validation Error: Admission number must strictly be between 3500 and 4150.";
+        errorBox.classList.remove('hidden');
+        return;
+      }
+
+      // 2. Reject if admission number is already bound to any existing ID
+      const existingUserWithAdm = users.find(u => Number(u.admissionNumber) === Number(admissionNo));
+      if (existingUserWithAdm) {
+        errorText.innerHTML = `<strong>RESTRICTION VIOLATION:</strong> Admission Number <strong>${admissionNo}</strong> is already registered to user ID <strong>@${existingUserWithAdm.username}</strong>.<br><br>Each admission number can only be used for <u>ONE</u> ID.`;
+        errorBox.classList.remove('hidden');
+        return;
+      }
+
+      // 3. Check unique username
+      if (users.some(u => u.username.toLowerCase() === username.toLowerCase())) {
+        errorText.innerText = "Validation Error: Username is already taken. Please choose another.";
+        errorBox.classList.remove('hidden');
+        return;
+      }
+
+      const newUser = {
+        id: "USR-" + admissionNo,
+        name: fullName,
+        admissionNumber: admissionNo,
+        username: username,
+        password: password,
+        lastLoginTime: new Date().toLocaleString()
+      };
+
+      users.push(newUser);
+      currentUser = newUser;
+      sessionStorage.setItem('foundly_current_user', JSON.stringify(currentUser));
+
+      saveState();
+      closeUserAuthModal();
+      alert(`Account Created! Admission Number ${admissionNo} is now permanently locked to ID @${username}.`);
+    }
+
+    function handleUserLogout() {
+      currentUser = null;
+      sessionStorage.removeItem('foundly_current_user');
+      renderUserHeader();
+      renderPublicFeed();
+    }
+
+    function handleInitiateReport(type) {
+      if (!currentUser) {
+        alert("Authentication Required: Please sign in with your Username, Password, and Admission Number (3500–4150) to submit lost or found items.");
+        openUserAuthModal('login');
+        return;
+      }
+      openModal(type);
+    }
+
+    // ================= ADMIN AUTH & CONTROL =================
+    function handleAdminButtonClick() {
+      if(isAuthenticatedAdmin) {
+        const adminConsole = document.getElementById('adminConsole');
+        if(adminConsole.classList.contains('hidden')) {
+          showAdminConsole();
+        } else {
+          showPublicView();
+        }
+      } else {
+        openAdminLoginModal();
+      }
+    }
+
+    function openAdminLoginModal() {
+      document.getElementById('adminIdInput').value = '';
+      document.getElementById('adminPasswordInput').value = '';
+      document.getElementById('loginErrorMsg').classList.add('hidden');
+      document.getElementById('adminLoginModal').classList.remove('hidden');
+    }
+
+    function closeAdminLoginModal() {
+      document.getElementById('adminLoginModal').classList.add('hidden');
+    }
+
+    function handleAdminLogin(e) {
+      e.preventDefault();
+      const enteredId = document.getElementById('adminIdInput').value.trim();
+      const enteredPass = document.getElementById('adminPasswordInput').value.trim();
+      const errorMsg = document.getElementById('loginErrorMsg');
+
+      if (enteredId === REQUIRED_ADMIN_ID && enteredPass === REQUIRED_ADMIN_PASS) {
+        isAuthenticatedAdmin = true;
+        sessionStorage.setItem('foundly_admin_auth', 'true');
+        closeAdminLoginModal();
+        showAdminConsole();
+      } else {
+        errorMsg.classList.remove('hidden');
+      }
+    }
+
+    function showAdminConsole() {
+      document.getElementById('publicPortal').classList.add('hidden');
+      document.getElementById('adminConsole').classList.remove('hidden');
+      
+      const badge = document.getElementById('currentRoleBadge');
+      badge.innerText = "Admin: lostnihad";
+      badge.className = "px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-red-900 text-red-200 border border-red-700";
+
+      const btnText = document.getElementById('viewSwitchText');
+      btnText.innerText = "Public Portal";
+      
+      renderAdminTables();
+      renderUsersTable();
+      lucide.createIcons();
+    }
+
+    function showPublicView() {
+      document.getElementById('adminConsole').classList.add('hidden');
+      document.getElementById('publicPortal').classList.remove('hidden');
+
+      const badge = document.getElementById('currentRoleBadge');
+      badge.innerText = "Public View";
+      badge.className = "px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-slate-800 text-slate-300";
+
+      const btnText = document.getElementById('viewSwitchText');
+      btnText.innerText = isAuthenticatedAdmin ? "Admin Console" : "Admin Login";
+
+      renderPublicFeed();
+      renderUserHeader();
+      lucide.createIcons();
+    }
+
+    function adminLogout() {
+      isAuthenticatedAdmin = false;
+      sessionStorage.removeItem('foundly_admin_auth');
+      showPublicView();
+      alert("Admin logged out successfully.");
+    }
+
+    function switchAdminTab(tabName) {
+      ['items', 'users', 'matches', 'dispatch'].forEach(t => {
+        document.getElementById(`adminTab-${t}`).classList.add('hidden');
+        const btn = document.getElementById(`tabBtn-${t}`);
+        btn.className = "w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800";
+      });
+
+      document.getElementById(`adminTab-${tabName}`).classList.remove('hidden');
+      const activeBtn = document.getElementById(`tabBtn-${tabName}`);
+      activeBtn.className = "w-full flex items-center gap-3 px-3 py-2.5 rounded-lg bg-brand-600 text-white font-semibold";
+      
+      if(tabName === 'users') renderUsersTable();
+      if(tabName === 'matches') renderMatchesTab();
+      if(tabName === 'dispatch') renderDispatchTab();
+    }
+
+    // ================= RENDER USER ACCOUNTS & AUDIT LOG (WITH LIVE SEARCH) =================
+    function renderUsersTable() {
+      const tbody = document.getElementById('adminUsersTableBody');
+      const searchInput = document.getElementById('adminUserSearchInput');
+      const query = searchInput ? searchInput.value.trim().toLowerCase() : '';
+
+      tbody.innerHTML = '';
+
+      // Filter by Admission Number, Name, or Username
+      let filteredUsers = users.filter(u => {
+        if (!query) return true;
+        const matchAdm = String(u.admissionNumber).includes(query);
+        const matchName = u.name.toLowerCase().includes(query);
+        const matchUsername = u.username.toLowerCase().includes(query);
+        return matchAdm || matchName || matchUsername;
+      });
+
+      if (filteredUsers.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7" class="p-6 text-center text-slate-500">No users found matching "${query}".</td></tr>`;
+        return;
+      }
+
+      filteredUsers.forEach(u => {
+        const tr = document.createElement('tr');
+        tr.className = "hover:bg-slate-800/40 transition";
+        tr.innerHTML = `
+          <td class="p-3.5">
+            <span class="font-mono text-emerald-400 font-bold bg-emerald-950/80 px-2 py-0.5 rounded border border-emerald-800 text-xs">
+              ${u.admissionNumber}
+            </span>
+          </td>
+          <td class="p-3.5">
+            <span class="inline-flex items-center gap-1 text-[10px] font-semibold text-emerald-400 bg-slate-900 border border-emerald-800/60 px-2 py-0.5 rounded-full">
+              <i data-lucide="lock" class="w-2.5 h-2.5"></i> 1:1 Bound
+            </span>
+          </td>
+          <td class="p-3.5 font-bold text-white">${u.name}</td>
+          <td class="p-3.5 font-mono text-brand-300">@${u.username}</td>
+          <td class="p-3.5">
+            <span class="font-mono text-amber-300 bg-slate-950/80 px-2 py-1 rounded border border-slate-800 text-xs select-all">
+              ${u.password}
+            </span>
+          </td>
+          <td class="p-3.5 text-slate-400 text-[11px] font-mono">${u.lastLoginTime || 'Never'}</td>
+          <td class="p-3.5 text-right">
+            <button onclick="adminDeleteUser('${u.username}')" title="Delete User" class="p-1.5 rounded hover:bg-slate-800 text-red-400">
+              <i data-lucide="trash-2" class="w-4 h-4"></i>
+            </button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+      lucide.createIcons();
+    }
+
+    function clearUserSearch() {
+      const searchInput = document.getElementById('adminUserSearchInput');
+      if (searchInput) {
+        searchInput.value = '';
+        renderUsersTable();
+      }
+    }
+
+    function adminDeleteUser(username) {
+      if (confirm(`Super Admin lostnihad: Delete account @${username}? This will free up the associated admission number.`)) {
+        users = users.filter(u => u.username !== username);
+        saveState();
+      }
+    }
+
+    // ================= RENDER PUBLIC FEED =================
+    function renderPublicFeed() {
+      const grid = document.getElementById('publicFeedGrid');
+      grid.innerHTML = '';
+
+      const approvedItems = items.filter(i => i.status === 'APPROVED');
+
+      if(approvedItems.length === 0) {
+        grid.innerHTML = `<div class="col-span-3 text-center py-12 text-slate-400 text-xs">No approved public items currently listed.</div>`;
+        return;
+      }
+
+      approvedItems.forEach(item => {
+        const isFound = item.type === 'found';
+        const isMyItem = currentUser && (item.submitterUsername === currentUser.username || Number(item.admissionNumber) === Number(currentUser.admissionNumber));
+
+        const card = document.createElement('div');
+        card.className = "bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex flex-col justify-between";
+        card.innerHTML = `
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="px-2.5 py-1 rounded-md text-xs font-semibold ${isFound ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-brand-50 text-brand-700 border border-brand-200'}">
+                ${isFound ? 'Found Item' : 'Lost Report'}
+              </span>
+              <span class="text-xs text-slate-400">${item.date}</span>
+            </div>
+            
+            <h4 class="font-bold text-slate-900 text-base">${item.name}</h4>
+            <p class="text-xs text-slate-500 mt-1 flex items-center gap-1">
+              <i data-lucide="map-pin" class="w-3.5 h-3.5 text-slate-400"></i> ${item.location}
+            </p>
+
+            ${isMyItem ? `
+              <div class="mt-4 p-3 bg-emerald-50/70 border border-emerald-200 rounded-xl text-xs">
+                <div class="flex items-center gap-1.5 font-bold text-emerald-800 mb-1">
+                  <i data-lucide="badge-check" class="w-4 h-4 text-emerald-600"></i>
+                  <span>Your Report (Visible only to You & Admin)</span>
+                </div>
+                <div class="text-[11px] text-emerald-900">
+                  <div><strong>Name:</strong> ${item.submitterName}</div>
+                  <div><strong>Admission No:</strong> <span class="font-mono font-bold">${item.admissionNumber}</span></div>
+                </div>
+              </div>
+            ` : `
+              <div class="mt-4 p-3 bg-slate-50 rounded-xl border border-slate-100 text-xs text-slate-500 flex items-center gap-2">
+                <i data-lucide="lock" class="w-4 h-4 text-slate-400 shrink-0"></i>
+                <span class="text-[11px]">Submitter identity encrypted. Only visible to admin.</span>
+              </div>
+            `}
+          </div>
+
+          <button onclick="alert('Blind verification challenge requested for: ${item.name}. Case logged for admin lostnihad.')" class="mt-5 w-full py-2.5 bg-slate-900 hover:bg-brand-600 text-white rounded-xl text-xs font-semibold transition flex items-center justify-center gap-1.5">
+            <i data-lucide="key-round" class="w-4 h-4"></i> Claim & Verify Ownership
+          </button>
+        `;
+        grid.appendChild(card);
+      });
+      lucide.createIcons();
+    }
+
+    // ================= RENDER ADMIN MASTER TABLE =================
+    function renderAdminTables() {
+      const tbody = document.getElementById('adminItemsTableBody');
+      const typeFilter = document.getElementById('adminFilterType').value;
+      const statusFilter = document.getElementById('adminFilterStatus').value;
+
+      let filtered = items.filter(i => {
+        const matchType = typeFilter === 'ALL' || i.type === typeFilter;
+        const matchStatus = statusFilter === 'ALL' || i.status === statusFilter;
+        return matchType && matchStatus;
+      });
+
+      tbody.innerHTML = '';
+
+      filtered.forEach(item => {
+        let statusBadge = "";
+        if(item.status === 'APPROVED') statusBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-950 text-emerald-400 border border-emerald-800">APPROVED</span>`;
+        else if(item.status === 'PENDING') statusBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-950 text-amber-400 border border-amber-800">PENDING</span>`;
+        else if(item.status === 'FLAGGED') statusBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-red-950 text-red-400 border border-red-800">FLAGGED</span>`;
+        else statusBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-indigo-950 text-indigo-400 border border-indigo-800">DISPATCHED</span>`;
+
+        const tr = document.createElement('tr');
+        tr.className = "hover:bg-slate-800/40 transition";
+        tr.innerHTML = `
+          <td class="p-3.5 font-mono text-[11px]">
+            <span class="${item.type === 'found' ? 'text-emerald-400' : 'text-brand-400'} font-bold uppercase">${item.type}</span>
+            <span class="block text-slate-500">${item.id}</span>
+          </td>
+          <td class="p-3.5">
+            <div class="font-semibold text-white text-[12px]">${item.submitterName || 'N/A'}</div>
+            <div class="inline-block mt-0.5 font-mono text-[10px] px-1.5 py-0.5 bg-brand-950 text-brand-300 border border-brand-800 rounded">
+              Adm: ${item.admissionNumber || 'N/A'}
+            </div>
+            <span class="block text-[10px] text-slate-500 font-mono">@${item.submitterUsername || 'user'}</span>
+          </td>
+          <td class="p-3.5 font-medium text-white">${item.name}</td>
+          <td class="p-3.5 text-slate-400">
+            <div>${item.location}</div>
+            <div class="text-[10px] text-slate-500">${item.date}</div>
+          </td>
+          <td class="p-3.5">
+            <div class="max-w-xs truncate text-amber-200/90 font-mono text-[11px] bg-slate-950/60 p-1.5 rounded border border-slate-800" title="${item.concealedTrait}">
+              🔓 ${item.concealedTrait}
+            </div>
+          </td>
+          <td class="p-3.5">${statusBadge}</td>
+          <td class="p-3.5 text-right">
+            <div class="flex items-center justify-end gap-1.5">
+              ${item.status !== 'APPROVED' ? `
+                <button onclick="adminSetStatus('${item.id}', 'APPROVED')" title="Approve" class="p-1.5 rounded hover:bg-slate-800 text-emerald-400">
+                  <i data-lucide="check" class="w-4 h-4"></i>
+                </button>
+              ` : `
+                <button onclick="adminSetStatus('${item.id}', 'FLAGGED')" title="Flag / Ban" class="p-1.5 rounded hover:bg-slate-800 text-amber-400">
+                  <i data-lucide="flag" class="w-4 h-4"></i>
+                </button>
+              `}
+              <button onclick="openAdminEditModal('${item.id}')" title="Edit Item" class="p-1.5 rounded hover:bg-slate-800 text-brand-400">
+                <i data-lucide="edit-2" class="w-4 h-4"></i>
+              </button>
+              <button onclick="adminDeleteItem('${item.id}')" title="Purge Item" class="p-1.5 rounded hover:bg-slate-800 text-red-400">
+                <i data-lucide="trash-2" class="w-4 h-4"></i>
+              </button>
+            </div>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      updateStats();
+      lucide.createIcons();
+    }
+
+    function updateStats() {
+      const lost = items.filter(i => i.type === 'lost').length;
+      const found = items.filter(i => i.type === 'found').length;
+      const dispatched = items.filter(i => i.status === 'DISPATCHED').length;
+
+      document.getElementById('statLostCount').innerText = lost;
+      document.getElementById('statFoundCount').innerText = found;
+      document.getElementById('statUserCount').innerText = users.length;
+      document.getElementById('statDispatchedCount').innerText = dispatched;
+      document.getElementById('badgeTotalItems').innerText = items.length;
+      document.getElementById('badgeTotalUsers').innerText = users.length;
+      document.getElementById('badgeActiveMatches').innerText = Math.min(lost, found);
+    }
+
+    function adminSetStatus(id, newStatus) {
+      const item = items.find(i => i.id === id);
+      if(item) {
+        item.status = newStatus;
+        saveState();
+      }
+    }
+
+    function adminDeleteItem(id) {
+      if(confirm(`Super Admin lostnihad: permanently purge item ${id} from database?`)) {
+        items = items.filter(i => i.id !== id);
+        saveState();
+      }
+    }
+
+    // Admin Edit Modal
+    function openAdminEditModal(id) {
+      const item = items.find(i => i.id === id);
+      if(!item) return;
+
+      document.getElementById('editItemId').value = item.id;
+      document.getElementById('editSubmitterName').value = item.submitterName || '';
+      document.getElementById('editAdmissionNumber').value = item.admissionNumber || 3500;
+      document.getElementById('editItemName').value = item.name;
+      document.getElementById('editItemLocation').value = item.location;
+      document.getElementById('editItemTrait').value = item.concealedTrait;
+      document.getElementById('editItemStatus').value = item.status;
+
+      document.getElementById('adminEditModal').classList.remove('hidden');
+    }
+
+    function closeAdminEditModal() {
+      document.getElementById('adminEditModal').classList.add('hidden');
+    }
+
+    function saveAdminEdit(e) {
+      e.preventDefault();
+      const id = document.getElementById('editItemId').value;
+      const adm = parseInt(document.getElementById('editAdmissionNumber').value, 10);
+
+      if (isNaN(adm) || adm < 3500 || adm > 4150) {
+        alert("Admission number must strictly be between 3500 and 4150.");
+        return;
+      }
+
+      const item = items.find(i => i.id === id);
+      if(item) {
+        item.submitterName = document.getElementById('editSubmitterName').value;
+        item.admissionNumber = adm;
+        item.name = document.getElementById('editItemName').value;
+        item.location = document.getElementById('editItemLocation').value;
+        item.concealedTrait = document.getElementById('editItemTrait').value;
+        item.status = document.getElementById('editItemStatus').value;
+        closeAdminEditModal();
+        saveState();
+      }
+    }
+
+    // Matching Engine
+    function renderMatchesTab() {
+      const list = document.getElementById('suggestedMatchesList');
+      const manualLost = document.getElementById('manualLostSelect');
+      const manualFound = document.getElementById('manualFoundSelect');
+
+      list.innerHTML = '';
+      manualLost.innerHTML = '<option value="">-- Choose a Lost Report --</option>';
+      manualFound.innerHTML = '<option value="">-- Choose a Found Item --</option>';
+
+      const lostItems = items.filter(i => i.type === 'lost');
+      const foundItems = items.filter(i => i.type === 'found');
+
+      lostItems.forEach(l => {
+        manualLost.innerHTML += `<option value="${l.id}">${l.id}: ${l.name} (${l.submitterName} - Adm: ${l.admissionNumber})</option>`;
+      });
+
+      foundItems.forEach(f => {
+        manualFound.innerHTML += `<option value="${f.id}">${f.id}: ${f.name} (Found by: ${f.submitterName} - Adm: ${f.admissionNumber})</option>`;
+      });
+
+      let matchFound = false;
+      lostItems.forEach(lost => {
+        foundItems.forEach(found => {
+          const wordsL = lost.name.toLowerCase().split(' ');
+          const wordsF = found.name.toLowerCase().split(' ');
+          const common = wordsL.filter(w => wordsF.includes(w) && w.length > 3);
+
+          if(common.length > 0) {
+            matchFound = true;
+            const score = 88 + Math.floor(Math.random() * 10);
+            const div = document.createElement('div');
+            div.className = "p-3.5 bg-slate-800/80 rounded-lg border border-slate-700/80 text-xs";
+            div.innerHTML = `
+              <div class="flex justify-between items-center mb-2">
+                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-brand-900 text-brand-300 border border-brand-700">
+                  ${score}% Algorithmic Match
+                </span>
+                <span class="text-emerald-400 font-mono text-[10px]">Claimant Adm: ${lost.admissionNumber}</span>
+              </div>
+              <div class="grid grid-cols-2 gap-2 text-[11px] mb-3">
+                <div class="bg-slate-900 p-2 rounded">
+                  <span class="text-slate-500 block text-[10px]">LOST CLAIMANT (${lost.admissionNumber}):</span>
+                  <span class="font-semibold text-white">${lost.name}</span>
+                </div>
+                <div class="bg-slate-900 p-2 rounded">
+                  <span class="text-slate-500 block text-[10px]">FOUND BY (${found.admissionNumber}):</span>
+                  <span class="font-semibold text-white">${found.name}</span>
+                </div>
+              </div>
+              <button onclick="approveDirectMatch('${lost.id}', '${found.id}')" class="w-full py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded font-semibold text-xs transition">
+                lostnihad Override: Approve & Generate Blind Dispatch
+              </button>
+            `;
+            list.appendChild(div);
+          }
+        });
+      });
+
+      if(!matchFound) {
+        list.innerHTML = `<div class="p-6 text-center text-slate-500 text-xs">No automatic pairs crossed the 75% confidence threshold. Use manual override below.</div>`;
+      }
+      lucide.createIcons();
+    }
+
+    function triggerAutoMatchSweep() {
+      renderMatchesTab();
+      alert("AI Sweep Completed: Cross-referenced admission identities and item parameters.");
+    }
+
+    function handleManualPairing(e) {
+      e.preventDefault();
+      const lostId = document.getElementById('manualLostSelect').value;
+      const foundId = document.getElementById('manualFoundSelect').value;
+      if(!lostId || !foundId) return alert("Select both items to link.");
+      approveDirectMatch(lostId, foundId);
+    }
+
+    function approveDirectMatch(lostId, foundId) {
+      const lost = items.find(i => i.id === lostId);
+      const found = items.find(i => i.id === foundId);
+
+      if(!lost || !found) return;
+
+      lost.status = "DISPATCHED";
+      found.status = "DISPATCHED";
+
+      const dispatchId = "DSP-" + Math.floor(1000 + Math.random() * 9000);
+      dispatches.push({
+        id: dispatchId,
+        itemId: found.id,
+        name: found.name,
+        claimantAdm: lost.admissionNumber,
+        tracking: "TRK-" + Math.floor(1000000 + Math.random() * 9000000),
+        pin: Math.floor(1000 + Math.random() * 9000).toString(),
+        status: "LABEL_GENERATED"
+      });
+
+      saveState();
+      switchAdminTab('dispatch');
+      alert(`Success! Handover approved for Admission No: ${lost.admissionNumber}. Manifest #${dispatchId} generated.`);
+    }
+
+    // Dispatch
+    function renderDispatchTab() {
+      const tbody = document.getElementById('dispatchTableBody');
+      tbody.innerHTML = '';
+
+      if(dispatches.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" class="p-6 text-center text-slate-500">No active shipping manifests.</td></tr>`;
+        return;
+      }
+
+      dispatches.forEach(d => {
+        const tr = document.createElement('tr');
+        tr.className = "hover:bg-slate-800/40 transition";
+        tr.innerHTML = `
+          <td class="p-3.5 font-semibold text-white">
+            ${d.name}
+            <span class="block text-[10px] text-slate-500">${d.id}</span>
+          </td>
+          <td class="p-3.5 font-mono text-emerald-400 font-bold">${d.claimantAdm || 'ADM-RECORD'}</td>
+          <td class="p-3.5 font-mono text-brand-400">${d.tracking}</td>
+          <td class="p-3.5 font-mono font-bold text-amber-300">${d.pin}</td>
+          <td class="p-3.5">
+            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-indigo-950 text-indigo-300 border border-indigo-800">
+              ${d.status}
+            </span>
+          </td>
+          <td class="p-3.5 text-right">
+            <button onclick="printDispatchSlip('${d.id}')" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-white rounded text-[11px] font-semibold">
+              Print Slip
+            </button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function printDispatchSlip(dispatchId) {
+      const d = dispatches.find(x => x.id === dispatchId);
+      if(!d) return;
+      alert(`=== FOUNDLY CONFIDENTIAL HANDOVER SLIP ===\nAuthorized By Admin: lostnihad\nManifest: ${d.id}\nItem: ${d.name}\nVerified Claimant Admission No: ${d.claimantAdm}\nTracking: ${d.tracking}\nHandover Release PIN: ${d.pin}`);
+    }
+
+    // Public Form Handling
+    function openModal(type) {
+      const modal = document.getElementById('reportModal');
+      const title = document.getElementById('modalTitle');
+      const typeInput = document.getElementById('reportType');
+      
+      document.getElementById('itemDate').valueAsDate = new Date();
+
+      document.getElementById('reportSubmitterName').value = currentUser.name;
+      document.getElementById('reportAdmissionNumber').value = currentUser.admissionNumber;
+
+      if(type === 'lost') {
+        title.innerText = "Report a Lost Item";
+        typeInput.value = 'lost';
+      } else {
+        title.innerText = "Report a Found Item";
+        typeInput.value = 'found';
+      }
+      modal.classList.remove('hidden');
+    }
+
+    function closeModal() {
+      document.getElementById('reportModal').classList.add('hidden');
+    }
+
+    function handlePublicSubmit(e) {
+      e.preventDefault();
+      if (!currentUser) return;
+
+      const type = document.getElementById('reportType').value;
+      const name = document.getElementById('itemName').value;
+      const date = document.getElementById('itemDate').value;
+      const location = document.getElementById('itemLocation').value;
+      const concealedTrait = document.getElementById('itemDetail').value;
+
+      const prefix = type === 'found' ? 'FND-' : 'LST-';
+      const newItem = {
+        id: prefix + Math.floor(300 + Math.random() * 700),
+        type: type,
+        submitterName: currentUser.name,
+        admissionNumber: currentUser.admissionNumber,
+        submitterUsername: currentUser.username,
+        name: name,
+        date: date,
+        location: location,
+        concealedTrait: concealedTrait,
+        status: "APPROVED"
+      };
+
+      items.unshift(newItem);
+      saveState();
+
+      closeModal();
+      document.getElementById('itemForm').reset();
+
+      alert(`Report submitted successfully!\n\nID: ${newItem.id}\nSubmitter: ${currentUser.name}\nAdmission No: ${currentUser.admissionNumber}\n\n* Your admission details are strictly confidential and visible only to you and administrator lostnihad.`);
+    }
+
+    // Initial check on load
+    if (isAuthenticatedAdmin) {
+      showAdminConsole();
+    } else {
+      renderPublicFeed();
+      renderUserHeader();
+      updateStats();
+    }
+  </script>
+</body>
+</html>
