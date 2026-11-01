@@ -35,8 +35,8 @@
   <div class="bg-slate-900 text-slate-300 px-4 py-2 text-xs flex justify-between items-center border-b border-slate-800 sticky top-0 z-50">
     <div class="flex items-center gap-2">
       <span class="inline-flex h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
-      <span class="font-mono text-emerald-400 font-bold">FOUNDLY ENGINE</span>
-      <span class="hidden sm:inline text-slate-500">| Admission Range: 3500–4150 • 1:1 Account Binding</span>
+      <span class="font-mono text-emerald-400 font-bold">FOUNDLY SYNC ENGINE</span>
+      <span class="hidden sm:inline text-slate-400">| Multi-Tab Live Sync Active (Adm: 3500–4150)</span>
     </div>
     
     <div class="flex items-center gap-2">
@@ -91,7 +91,7 @@
       <div class="max-w-5xl mx-auto px-4 sm:px-6 text-center">
         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-brand-100 shadow-sm text-xs font-semibold text-brand-700 mb-6">
           <i data-lucide="shield-check" class="w-4 h-4 text-brand-600"></i>
-          Secure Verification • Admission Numbers (3500–4150)
+          Real-Time Synced Database • Admission Numbers 3500–4150
         </div>
 
         <h1 class="text-4xl sm:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.15] mb-6">
@@ -100,7 +100,7 @@
         </h1>
 
         <p class="max-w-2xl mx-auto text-lg text-slate-600 mb-10 leading-relaxed">
-          Sign in with your registered admission number to report or claim items. Submitter identities are strictly confidential and visible only to verified administrators.
+          Sign in with your verified admission number to report or claim items. All reports sync across tabs and devices in real time without data loss.
         </p>
 
         <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -121,7 +121,12 @@
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex flex-col sm:flex-row justify-between sm:items-end mb-8 gap-4">
           <div>
-            <h2 class="text-2xl font-bold text-slate-900">Approved Public Items Feed</h2>
+            <div class="flex items-center gap-2">
+              <h2 class="text-2xl font-bold text-slate-900">Approved Public Items Feed</h2>
+              <span class="px-2 py-0.5 text-[10px] bg-emerald-100 text-emerald-700 font-bold rounded-full flex items-center gap-1">
+                <span class="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse"></span> Live Sync
+              </span>
+            </div>
             <p class="text-xs text-slate-500 mt-1">Submitter names and admission numbers are masked for public privacy.</p>
           </div>
           <div class="flex items-center gap-2 text-xs bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-lg">
@@ -307,7 +312,7 @@
   </div>
 
   <!-- ========================================================================= -->
-  <!-- 3. ADMIN LOGIN MODAL (ISOLATED CREDENTIALS)                               -->
+  <!-- 3. ADMIN LOGIN MODAL                                                      -->
   <!-- ========================================================================= -->
   <div id="adminLoginModal" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4">
     <div class="bg-slate-900 border border-slate-800 text-white rounded-2xl max-w-sm w-full p-6 shadow-2xl relative">
@@ -322,7 +327,6 @@
       <h3 class="text-lg font-bold text-center text-white mb-1">Super Admin Login</h3>
       <p class="text-xs text-slate-400 text-center mb-6">Restricted administrator portal.</p>
 
-      <!-- Error Box -->
       <div id="loginErrorMsg" class="hidden mb-4 p-2.5 bg-red-950/80 border border-red-800 rounded-lg text-red-300 text-xs text-center flex items-center justify-center gap-2">
         <i data-lucide="alert-circle" class="w-4 h-4 text-red-400"></i>
         <span>Invalid Admin ID or Password.</span>
@@ -354,14 +358,13 @@
   </div>
 
   <!-- ========================================================================= -->
-  <!-- 4. ADMIN OPERATIONS CONSOLE (SUPER-USER CONTROL)                          -->
+  <!-- 4. ADMIN OPERATIONS CONSOLE                                               -->
   <!-- ========================================================================= -->
   <div id="adminConsole" class="hidden min-h-screen bg-slate-950 text-slate-100 flex">
     
     <!-- Admin Sidebar -->
     <aside class="w-64 bg-slate-900 border-r border-slate-800 flex flex-col justify-between shrink-0">
       <div>
-        <!-- Profile / Brand -->
         <div class="h-16 px-6 flex items-center gap-3 border-b border-slate-800">
           <div class="h-8 w-8 bg-brand-600 text-white rounded-lg flex items-center justify-center font-bold">
             <i data-lucide="shield" class="w-4 h-4"></i>
@@ -372,7 +375,6 @@
           </div>
         </div>
 
-        <!-- Navigation Tabs -->
         <nav class="p-4 space-y-1 text-xs font-medium">
           <button onclick="switchAdminTab('items')" id="tabBtn-items" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg bg-brand-600 text-white">
             <i data-lucide="layers" class="w-4 h-4"></i>
@@ -399,7 +401,6 @@
         </nav>
       </div>
 
-      <!-- Admin Actions / Logout -->
       <div class="p-4 border-t border-slate-800 space-y-2">
         <button onclick="resetToSampleData()" class="w-full py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-xs font-semibold flex items-center justify-center gap-2">
           <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
@@ -415,7 +416,6 @@
     <!-- Admin Content Area -->
     <main class="flex-1 p-8 overflow-y-auto max-h-screen">
       
-      <!-- Quick Stats Row -->
       <div class="grid grid-cols-1 sm:grid-cols-4 gap-4 mb-8">
         <div class="p-4 rounded-xl bg-slate-900 border border-slate-800">
           <span class="text-xs text-slate-500 block mb-1">Total Lost Reports</span>
@@ -479,7 +479,7 @@
         </div>
       </div>
 
-      <!-- ================= TAB 2: USER ACCOUNTS & PASSWORDS LOG (WITH LIVE SEARCH) ================= -->
+      <!-- ================= TAB 2: USER ACCOUNTS & AUDIT LOG ================= -->
       <div id="adminTab-users" class="hidden">
         <div class="flex flex-col md:flex-row justify-between md:items-center mb-6 gap-4">
           <div>
@@ -487,7 +487,6 @@
             <p class="text-xs text-slate-400">Search logged-in users by Admission Number, Name, or Username.</p>
           </div>
           
-          <!-- SEARCH BAR -->
           <div class="relative w-full md:w-80">
             <i data-lucide="search" class="w-4 h-4 absolute left-3 top-2.5 text-slate-400"></i>
             <input 
@@ -523,7 +522,7 @@
         </div>
       </div>
 
-      <!-- ================= TAB 3: MATCHING ENGINE & OVERRIDES ================= -->
+      <!-- ================= TAB 3: MATCHING ENGINE ================= -->
       <div id="adminTab-matches" class="hidden">
         <div class="flex justify-between items-center mb-6">
           <div>
@@ -577,7 +576,7 @@
         </div>
       </div>
 
-      <!-- ================= TAB 4: DISPATCH & HANDOVERS ================= -->
+      <!-- ================= TAB 4: DISPATCH ================= -->
       <div id="adminTab-dispatch" class="hidden">
         <div class="mb-6">
           <h2 class="text-xl font-bold text-white">Blind Courier Logistics & Return Slips</h2>
@@ -606,7 +605,7 @@
     </main>
   </div>
 
-  <!-- ================= PUBLIC REPORT MODAL ================= -->
+  <!-- ================= REPORT MODAL ================= -->
   <div id="reportModal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
     <div class="bg-white rounded-2xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative max-h-[92vh] overflow-y-auto">
       <button onclick="closeModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600">
@@ -619,7 +618,6 @@
       <form id="itemForm" onsubmit="handlePublicSubmit(event)" class="space-y-4">
         <input type="hidden" id="reportType" value="lost" />
 
-        <!-- Submitter Identity Details -->
         <div class="p-3.5 bg-brand-50/70 border border-brand-100 rounded-xl space-y-2">
           <div class="flex items-center gap-1.5 text-xs font-bold text-brand-900">
             <i data-lucide="lock" class="w-3.5 h-3.5 text-brand-600"></i>
@@ -643,7 +641,7 @@
 
         <div>
           <label class="block text-xs font-semibold text-slate-700 mb-1">Item Title / Model <span class="text-rose-500">*</span></label>
-          <input type="text" id="itemName" required placeholder="e.g. Sony WH-1000XM4 Headphones or Scientific Calculator" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-brand-600" />
+          <input type="text" id="itemName" required placeholder="e.g. Nike Black Cap, Calculator, Backpack" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-brand-600" />
         </div>
 
         <div class="grid grid-cols-2 gap-4">
@@ -653,7 +651,7 @@
           </div>
           <div>
             <label class="block text-xs font-semibold text-slate-700 mb-1">Location <span class="text-rose-500">*</span></label>
-            <input type="text" id="itemLocation" required placeholder="e.g. Library 2nd Floor or Sports Arena" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-brand-600" />
+            <input type="text" id="itemLocation" required placeholder="e.g. Library 2nd Floor, Playground, Cafeteria" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-brand-600" />
           </div>
         </div>
 
@@ -661,7 +659,7 @@
           <label class="block text-xs font-semibold text-slate-700 mb-1">
             Concealed Trait / Private Identifier <span class="text-rose-500">*</span>
           </label>
-          <textarea id="itemDetail" rows="2" required placeholder="Hidden detail only the real owner knows (e.g. specific scratch on corner, sticker inside case, keychain text)." class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-brand-600"></textarea>
+          <textarea id="itemDetail" rows="2" required placeholder="Hidden detail only the real owner knows (e.g. tear under visor, name written on inner tag, sticker)." class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-brand-600"></textarea>
           <p class="text-[11px] text-slate-400 mt-1">Concealed from public feed for blind ownership verification.</p>
         </div>
 
@@ -672,7 +670,7 @@
     </div>
   </div>
 
-  <!-- ================= EDIT ITEM MODAL (ADMIN PRIVILEGED) ================= -->
+  <!-- ================= EDIT ITEM MODAL ================= -->
   <div id="adminEditModal" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
     <div class="bg-slate-900 border border-slate-800 text-white rounded-2xl max-w-md w-full p-6 shadow-2xl relative">
       <button onclick="closeAdminEditModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white">
@@ -730,7 +728,7 @@
     </div>
   </div>
 
-  <!-- ================= JAVASCRIPT STATE ENGINE ================= -->
+  <!-- ================= JAVASCRIPT STATE & LIVE MULTI-TAB ENGINE ================= -->
   <script>
     // Initialize icons
     lucide.createIcons();
@@ -740,7 +738,10 @@
     const REQUIRED_ADMIN_PASS = "nihadlost";
     let isAuthenticatedAdmin = sessionStorage.getItem('foundly_admin_auth') === 'true';
 
-    // USER DATABASE - UNIQUE 1:1 ADMISSION NUMBERS (3500–4150)
+    // PER-TAB USER SESSION (Allows testing as different users in different tabs)
+    let currentUser = JSON.parse(sessionStorage.getItem('foundly_current_user')) || null;
+
+    // DEFAULT DATA (Loaded only on fresh initialization)
     const DEFAULT_USERS = [
       {
         id: "USR-3820",
@@ -768,10 +769,6 @@
       }
     ];
 
-    let users = JSON.parse(localStorage.getItem('foundly_users')) || DEFAULT_USERS;
-    let currentUser = JSON.parse(sessionStorage.getItem('foundly_current_user')) || null;
-
-    // DEFAULT ITEMS DATABASE
     const DEFAULT_ITEMS = [
       {
         id: "FND-101",
@@ -811,7 +808,7 @@
       }
     ];
 
-    let dispatches = [
+    const DEFAULT_DISPATCHES = [
       {
         id: "DSP-5001",
         itemId: "FND-101",
@@ -823,14 +820,84 @@
       }
     ];
 
-    let items = JSON.parse(localStorage.getItem('foundly_items')) || DEFAULT_ITEMS;
+    // INITIALIZE STORAGE IF EMPTY
+    if (!localStorage.getItem('foundly_users')) {
+      localStorage.setItem('foundly_users', JSON.stringify(DEFAULT_USERS));
+    }
+    if (!localStorage.getItem('foundly_items')) {
+      localStorage.setItem('foundly_items', JSON.stringify(DEFAULT_ITEMS));
+    }
+    if (!localStorage.getItem('foundly_dispatches')) {
+      localStorage.setItem('foundly_dispatches', JSON.stringify(DEFAULT_DISPATCHES));
+    }
 
-    function saveState() {
-      localStorage.setItem('foundly_items', JSON.stringify(items));
-      localStorage.setItem('foundly_users', JSON.stringify(users));
+    // ================= DYNAMIC FRESH DATA GETTERS (PREVENTS STALE OVERWRITE) =================
+    function getFreshUsers() {
+      try {
+        const u = localStorage.getItem('foundly_users');
+        return u ? JSON.parse(u) : DEFAULT_USERS;
+      } catch(e) {
+        return DEFAULT_USERS;
+      }
+    }
+
+    function setFreshUsers(userArr) {
+      localStorage.setItem('foundly_users', JSON.stringify(userArr));
+      broadcastChange();
+    }
+
+    function getFreshItems() {
+      try {
+        const i = localStorage.getItem('foundly_items');
+        return i ? JSON.parse(i) : DEFAULT_ITEMS;
+      } catch(e) {
+        return DEFAULT_ITEMS;
+      }
+    }
+
+    function setFreshItems(itemsArr) {
+      localStorage.setItem('foundly_items', JSON.stringify(itemsArr));
+      broadcastChange();
+    }
+
+    function getFreshDispatches() {
+      try {
+        const d = localStorage.getItem('foundly_dispatches');
+        return d ? JSON.parse(d) : DEFAULT_DISPATCHES;
+      } catch(e) {
+        return DEFAULT_DISPATCHES;
+      }
+    }
+
+    function setFreshDispatches(dispArr) {
+      localStorage.setItem('foundly_dispatches', JSON.stringify(dispArr));
+      broadcastChange();
+    }
+
+    // ================= REAL-TIME CROSS-TAB SYNC BUS =================
+    const syncBus = ('BroadcastChannel' in window) ? new BroadcastChannel('foundly_realtime_sync') : null;
+    if (syncBus) {
+      syncBus.onmessage = () => {
+        refreshAllUI();
+      };
+    }
+
+    // Standard storage event listener for cross-tab updates
+    window.addEventListener('storage', (e) => {
+      if (['foundly_items', 'foundly_users', 'foundly_dispatches'].includes(e.key)) {
+        refreshAllUI();
+      }
+    });
+
+    function broadcastChange() {
+      if (syncBus) syncBus.postMessage('SYNC_UPDATE');
+      refreshAllUI();
+    }
+
+    function refreshAllUI() {
       renderPublicFeed();
       renderUserHeader();
-      if(isAuthenticatedAdmin) {
+      if (isAuthenticatedAdmin) {
         renderAdminTables();
         renderUsersTable();
       }
@@ -838,10 +905,11 @@
     }
 
     function resetToSampleData() {
-      if(confirm("Reset all items, users, and dispatches to factory sample data?")) {
-        items = JSON.parse(JSON.stringify(DEFAULT_ITEMS));
-        users = JSON.parse(JSON.stringify(DEFAULT_USERS));
-        saveState();
+      if(confirm("Reset all items, users, and dispatches to factory sample data across all tabs?")) {
+        localStorage.setItem('foundly_items', JSON.stringify(DEFAULT_ITEMS));
+        localStorage.setItem('foundly_users', JSON.stringify(DEFAULT_USERS));
+        localStorage.setItem('foundly_dispatches', JSON.stringify(DEFAULT_DISPATCHES));
+        broadcastChange();
       }
     }
 
@@ -904,7 +972,7 @@
       }
     }
 
-    // USER SIGN IN WITH REQUIRED ADMISSION NUMBER VERIFICATION
+    // USER SIGN IN (READS FRESHEST USER DATA FROM STORAGE)
     function handleUserLogin(e) {
       e.preventDefault();
       const u = document.getElementById('loginUsername').value.trim();
@@ -913,15 +981,16 @@
       const errorBox = document.getElementById('userAuthErrorMsg');
       const errorText = document.getElementById('userAuthErrorText');
 
-      // Validate Admission Number Range: 3500–4150
       if (isNaN(adm) || adm < 3500 || adm > 4150) {
         errorText.innerText = "Admission number must strictly be between 3500 and 4150.";
         errorBox.classList.remove('hidden');
         return;
       }
 
-      // Check username, password AND admission number
-      const found = users.find(user => 
+      // Read fresh list of users in case another tab registered an account
+      const currentUsers = getFreshUsers();
+
+      const found = currentUsers.find(user => 
         user.username.toLowerCase() === u.toLowerCase() && 
         user.password === p && 
         Number(user.admissionNumber) === adm
@@ -929,13 +998,15 @@
 
       if (found) {
         found.lastLoginTime = new Date().toLocaleString();
+        setFreshUsers(currentUsers); // Updates login timestamp in shared storage
+        
         currentUser = found;
         sessionStorage.setItem('foundly_current_user', JSON.stringify(currentUser));
-        saveState();
+        
         closeUserAuthModal();
+        refreshAllUI();
       } else {
-        // Detailed error feedback if username exists but admission number was wrong
-        const userExists = users.find(user => user.username.toLowerCase() === u.toLowerCase());
+        const userExists = currentUsers.find(user => user.username.toLowerCase() === u.toLowerCase());
         if (userExists && userExists.password === p && Number(userExists.admissionNumber) !== adm) {
           errorText.innerText = "Admission number mismatch! Entered admission number does not match this username.";
         } else {
@@ -945,7 +1016,7 @@
       }
     }
 
-    // REGISTRATION WITH STRICT 1:1 DUPLICATE RESTRICTION
+    // REGISTRATION (PREVENTS RACE CONDITIONS & PERSISTS INSTANTLY)
     function handleUserRegister(e) {
       e.preventDefault();
       const fullName = document.getElementById('regFullName').value.trim();
@@ -956,23 +1027,22 @@
       const errorBox = document.getElementById('userAuthErrorMsg');
       const errorText = document.getElementById('userAuthErrorText');
 
-      // 1. Validate Range: 3500–4150
       if (isNaN(admissionNo) || admissionNo < 3500 || admissionNo > 4150) {
         errorText.innerText = "Validation Error: Admission number must strictly be between 3500 and 4150.";
         errorBox.classList.remove('hidden');
         return;
       }
 
-      // 2. Reject if admission number is already bound to any existing ID
-      const existingUserWithAdm = users.find(u => Number(u.admissionNumber) === Number(admissionNo));
+      const currentUsers = getFreshUsers();
+
+      const existingUserWithAdm = currentUsers.find(u => Number(u.admissionNumber) === Number(admissionNo));
       if (existingUserWithAdm) {
         errorText.innerHTML = `<strong>RESTRICTION VIOLATION:</strong> Admission Number <strong>${admissionNo}</strong> is already registered to user ID <strong>@${existingUserWithAdm.username}</strong>.<br><br>Each admission number can only be used for <u>ONE</u> ID.`;
         errorBox.classList.remove('hidden');
         return;
       }
 
-      // 3. Check unique username
-      if (users.some(u => u.username.toLowerCase() === username.toLowerCase())) {
+      if (currentUsers.some(u => u.username.toLowerCase() === username.toLowerCase())) {
         errorText.innerText = "Validation Error: Username is already taken. Please choose another.";
         errorBox.classList.remove('hidden');
         return;
@@ -987,20 +1057,21 @@
         lastLoginTime: new Date().toLocaleString()
       };
 
-      users.push(newUser);
+      currentUsers.push(newUser);
+      setFreshUsers(currentUsers); // Persists and broadcasts to all other tabs immediately
+
       currentUser = newUser;
       sessionStorage.setItem('foundly_current_user', JSON.stringify(currentUser));
 
-      saveState();
       closeUserAuthModal();
-      alert(`Account Created! Admission Number ${admissionNo} is now permanently locked to ID @${username}.`);
+      refreshAllUI();
+      alert(`Account Created! Admission Number ${admissionNo} is now permanently locked to ID @${username}. You can now sign in from any tab.`);
     }
 
     function handleUserLogout() {
       currentUser = null;
       sessionStorage.removeItem('foundly_current_user');
-      renderUserHeader();
-      renderPublicFeed();
+      refreshAllUI();
     }
 
     function handleInitiateReport(type) {
@@ -1080,9 +1151,7 @@
       const btnText = document.getElementById('viewSwitchText');
       btnText.innerText = isAuthenticatedAdmin ? "Admin Console" : "Admin Login";
 
-      renderPublicFeed();
-      renderUserHeader();
-      lucide.createIcons();
+      refreshAllUI();
     }
 
     function adminLogout() {
@@ -1108,16 +1177,16 @@
       if(tabName === 'dispatch') renderDispatchTab();
     }
 
-    // ================= RENDER USER ACCOUNTS & AUDIT LOG (WITH LIVE SEARCH) =================
+    // ================= RENDER USER ACCOUNTS & AUDIT LOG =================
     function renderUsersTable() {
       const tbody = document.getElementById('adminUsersTableBody');
       const searchInput = document.getElementById('adminUserSearchInput');
       const query = searchInput ? searchInput.value.trim().toLowerCase() : '';
+      const currentUsers = getFreshUsers();
 
       tbody.innerHTML = '';
 
-      // Filter by Admission Number, Name, or Username
-      let filteredUsers = users.filter(u => {
+      let filteredUsers = currentUsers.filter(u => {
         if (!query) return true;
         const matchAdm = String(u.admissionNumber).includes(query);
         const matchName = u.name.toLowerCase().includes(query);
@@ -1173,8 +1242,8 @@
 
     function adminDeleteUser(username) {
       if (confirm(`Super Admin lostnihad: Delete account @${username}? This will free up the associated admission number.`)) {
-        users = users.filter(u => u.username !== username);
-        saveState();
+        let currentUsers = getFreshUsers().filter(u => u.username !== username);
+        setFreshUsers(currentUsers);
       }
     }
 
@@ -1183,7 +1252,8 @@
       const grid = document.getElementById('publicFeedGrid');
       grid.innerHTML = '';
 
-      const approvedItems = items.filter(i => i.status === 'APPROVED');
+      const currentItems = getFreshItems();
+      const approvedItems = currentItems.filter(i => i.status === 'APPROVED');
 
       if(approvedItems.length === 0) {
         grid.innerHTML = `<div class="col-span-3 text-center py-12 text-slate-400 text-xs">No approved public items currently listed.</div>`;
@@ -1243,8 +1313,9 @@
       const tbody = document.getElementById('adminItemsTableBody');
       const typeFilter = document.getElementById('adminFilterType').value;
       const statusFilter = document.getElementById('adminFilterStatus').value;
+      const currentItems = getFreshItems();
 
-      let filtered = items.filter(i => {
+      let filtered = currentItems.filter(i => {
         const matchType = typeFilter === 'ALL' || i.type === typeFilter;
         const matchStatus = statusFilter === 'ALL' || i.status === statusFilter;
         return matchType && matchStatus;
@@ -1312,37 +1383,42 @@
     }
 
     function updateStats() {
-      const lost = items.filter(i => i.type === 'lost').length;
-      const found = items.filter(i => i.type === 'found').length;
-      const dispatched = items.filter(i => i.status === 'DISPATCHED').length;
+      const currentItems = getFreshItems();
+      const currentUsers = getFreshUsers();
+
+      const lost = currentItems.filter(i => i.type === 'lost').length;
+      const found = currentItems.filter(i => i.type === 'found').length;
+      const dispatched = currentItems.filter(i => i.status === 'DISPATCHED').length;
 
       document.getElementById('statLostCount').innerText = lost;
       document.getElementById('statFoundCount').innerText = found;
-      document.getElementById('statUserCount').innerText = users.length;
+      document.getElementById('statUserCount').innerText = currentUsers.length;
       document.getElementById('statDispatchedCount').innerText = dispatched;
-      document.getElementById('badgeTotalItems').innerText = items.length;
-      document.getElementById('badgeTotalUsers').innerText = users.length;
+      document.getElementById('badgeTotalItems').innerText = currentItems.length;
+      document.getElementById('badgeTotalUsers').innerText = currentUsers.length;
       document.getElementById('badgeActiveMatches').innerText = Math.min(lost, found);
     }
 
     function adminSetStatus(id, newStatus) {
-      const item = items.find(i => i.id === id);
+      let currentItems = getFreshItems();
+      const item = currentItems.find(i => i.id === id);
       if(item) {
         item.status = newStatus;
-        saveState();
+        setFreshItems(currentItems);
       }
     }
 
     function adminDeleteItem(id) {
       if(confirm(`Super Admin lostnihad: permanently purge item ${id} from database?`)) {
-        items = items.filter(i => i.id !== id);
-        saveState();
+        let currentItems = getFreshItems().filter(i => i.id !== id);
+        setFreshItems(currentItems);
       }
     }
 
     // Admin Edit Modal
     function openAdminEditModal(id) {
-      const item = items.find(i => i.id === id);
+      const currentItems = getFreshItems();
+      const item = currentItems.find(i => i.id === id);
       if(!item) return;
 
       document.getElementById('editItemId').value = item.id;
@@ -1370,7 +1446,8 @@
         return;
       }
 
-      const item = items.find(i => i.id === id);
+      let currentItems = getFreshItems();
+      const item = currentItems.find(i => i.id === id);
       if(item) {
         item.submitterName = document.getElementById('editSubmitterName').value;
         item.admissionNumber = adm;
@@ -1378,8 +1455,9 @@
         item.location = document.getElementById('editItemLocation').value;
         item.concealedTrait = document.getElementById('editItemTrait').value;
         item.status = document.getElementById('editItemStatus').value;
+        
         closeAdminEditModal();
-        saveState();
+        setFreshItems(currentItems);
       }
     }
 
@@ -1388,13 +1466,14 @@
       const list = document.getElementById('suggestedMatchesList');
       const manualLost = document.getElementById('manualLostSelect');
       const manualFound = document.getElementById('manualFoundSelect');
+      const currentItems = getFreshItems();
 
       list.innerHTML = '';
       manualLost.innerHTML = '<option value="">-- Choose a Lost Report --</option>';
       manualFound.innerHTML = '<option value="">-- Choose a Found Item --</option>';
 
-      const lostItems = items.filter(i => i.type === 'lost');
-      const foundItems = items.filter(i => i.type === 'found');
+      const lostItems = currentItems.filter(i => i.type === 'lost');
+      const foundItems = currentItems.filter(i => i.type === 'found');
 
       lostItems.forEach(l => {
         manualLost.innerHTML += `<option value="${l.id}">${l.id}: ${l.name} (${l.submitterName} - Adm: ${l.admissionNumber})</option>`;
@@ -1409,7 +1488,7 @@
         foundItems.forEach(found => {
           const wordsL = lost.name.toLowerCase().split(' ');
           const wordsF = found.name.toLowerCase().split(' ');
-          const common = wordsL.filter(w => wordsF.includes(w) && w.length > 3);
+          const common = wordsL.filter(w => wordsF.includes(w) && w.length > 2);
 
           if(common.length > 0) {
             matchFound = true;
@@ -1462,15 +1541,18 @@
     }
 
     function approveDirectMatch(lostId, foundId) {
-      const lost = items.find(i => i.id === lostId);
-      const found = items.find(i => i.id === foundId);
+      let currentItems = getFreshItems();
+      const lost = currentItems.find(i => i.id === lostId);
+      const found = currentItems.find(i => i.id === foundId);
 
       if(!lost || !found) return;
 
       lost.status = "DISPATCHED";
       found.status = "DISPATCHED";
+      setFreshItems(currentItems);
 
       const dispatchId = "DSP-" + Math.floor(1000 + Math.random() * 9000);
+      let dispatches = getFreshDispatches();
       dispatches.push({
         id: dispatchId,
         itemId: found.id,
@@ -1480,8 +1562,8 @@
         pin: Math.floor(1000 + Math.random() * 9000).toString(),
         status: "LABEL_GENERATED"
       });
+      setFreshDispatches(dispatches);
 
-      saveState();
       switchAdminTab('dispatch');
       alert(`Success! Handover approved for Admission No: ${lost.admissionNumber}. Manifest #${dispatchId} generated.`);
     }
@@ -1489,6 +1571,7 @@
     // Dispatch
     function renderDispatchTab() {
       const tbody = document.getElementById('dispatchTableBody');
+      const dispatches = getFreshDispatches();
       tbody.innerHTML = '';
 
       if(dispatches.length === 0) {
@@ -1523,7 +1606,7 @@
     }
 
     function printDispatchSlip(dispatchId) {
-      const d = dispatches.find(x => x.id === dispatchId);
+      const d = getFreshDispatches().find(x => x.id === dispatchId);
       if(!d) return;
       alert(`=== FOUNDLY CONFIDENTIAL HANDOVER SLIP ===\nAuthorized By Admin: lostnihad\nManifest: ${d.id}\nItem: ${d.name}\nVerified Claimant Admission No: ${d.claimantAdm}\nTracking: ${d.tracking}\nHandover Release PIN: ${d.pin}`);
     }
@@ -1553,6 +1636,7 @@
       document.getElementById('reportModal').classList.add('hidden');
     }
 
+    // SUBMIT (APPENDS TO STORAGE & BROADCASTS IN REAL-TIME TO ALL TABS)
     function handlePublicSubmit(e) {
       e.preventDefault();
       if (!currentUser) return;
@@ -1577,22 +1661,22 @@
         status: "APPROVED"
       };
 
-      items.unshift(newItem);
-      saveState();
+      // Always retrieve the latest items from storage before saving
+      let currentItems = getFreshItems();
+      currentItems.unshift(newItem);
+      setFreshItems(currentItems); // Immediately broadcasts to all open tabs
 
       closeModal();
       document.getElementById('itemForm').reset();
 
-      alert(`Report submitted successfully!\n\nID: ${newItem.id}\nSubmitter: ${currentUser.name}\nAdmission No: ${currentUser.admissionNumber}\n\n* Your admission details are strictly confidential and visible only to you and administrator lostnihad.`);
+      alert(`Report submitted successfully!\n\nID: ${newItem.id}\nSubmitter: ${currentUser.name}\nAdmission No: ${currentUser.admissionNumber}\n\n* Synced across all tabs in real-time.`);
     }
 
     // Initial check on load
     if (isAuthenticatedAdmin) {
       showAdminConsole();
     } else {
-      renderPublicFeed();
-      renderUserHeader();
-      updateStats();
+      refreshAllUI();
     }
   </script>
 </body>
